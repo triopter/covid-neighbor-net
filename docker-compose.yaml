@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: cvnn
+      POSTGRES_USER: cvnn
+      POSTGRESS_PASSWORD: cvnnpass
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+  app:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: cvnn
+      DB_USER: cvnn
+      DB_PASS: cvnnpass
+    depends_on:
+      - db
