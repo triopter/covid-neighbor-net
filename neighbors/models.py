@@ -41,6 +41,12 @@ class NeighborProfile(models.Model):
     # @TDOD: verify that either email or phone is provided
 
 
+# @TODO: replace this with its own table or something eventually
+class Country(models.TextChoices):
+    USA = ('USA', _("United States"))
+    CANADA = ('Canada', _("Canada"))
+
+
 class Address(geo_models.Model):
     owner = models.ForeignKey(NeighborProfile, on_delete=models.CASCADE, related_name='addresses')
 
@@ -54,6 +60,7 @@ class Address(geo_models.Model):
         help_text=_("Starting with US State / Canadian province"),
     )
     postal_code = models.CharField(max_length=30)
+    country = models.CharField(max_length=100, choices=Country.choices, default=Country.USA)
 
     lng_lat = geo_models.PointField(
         geography=True, null=True, help_text=_("Note that longitude comes first")

@@ -21,7 +21,7 @@ from neighbors import views as neighbor_views
 
 urlpatterns = [
     path(
-        'engagements/create/thanks/',
+        'engagements/created/<int:engagement_id>/',
         engagement_views.create_engagement_thanks,
         name='create_engagement_thanks',
     ),

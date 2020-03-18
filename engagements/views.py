@@ -1,4 +1,8 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
+from engagements.forms import RequesterRegistrationForm
 
 
 def search_engagements(request):
@@ -6,10 +10,21 @@ def search_engagements(request):
 
 
 def register_and_create_engagement(request):
+
+    if request.method == 'POST':
+        form = RequesterRegistrationForm(request.POST)
+        if form.is_valid():
+            engagement = form.save()
+            return HttpResponseRedirect(
+                reverse('create_engagement_thanks', kwargs={'engagement_id': engagement.id})
+            )
+    else:
+        form = RequesterRegistrationForm()
+
     return render(
         request,
         'engagements/register_requester.html',
-        {'description': 'registration form with engagement creation'},
+        {'description': 'registration form with engagement creation', 'form': form},
     )
 
 
@@ -21,11 +36,13 @@ def create_engagement(request):
     )
 
 
-def create_engagement_thanks(request):
+def create_engagement_thanks(request, engagement_id):
     return render(
         request,
         'engagements/create_thanks.html',
-        {'description': 'thanks page for engagement creation'},
+        {
+            'description': 'thanks page for engagement creation. visible only to creator, 403 for other users'
+        },
     )
 
 
