@@ -10,7 +10,6 @@ def search_engagements(request):
 
 
 def register_and_create_engagement(request):
-
     if request.method == 'POST':
         form = RequesterRegistrationForm(request.POST)
         if form.is_valid():
@@ -21,11 +20,7 @@ def register_and_create_engagement(request):
     else:
         form = RequesterRegistrationForm()
 
-    return render(
-        request,
-        'engagements/register_requester.html',
-        {'description': 'registration form with engagement creation', 'form': form},
-    )
+    return render(request, 'engagements/register_requester.html', {'form': form},)
 
 
 def create_engagement(request):

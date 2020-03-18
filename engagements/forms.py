@@ -64,6 +64,8 @@ class RequesterRegistrationForm(forms.Form):
         )
 
         # Add Requester role
+        # @TODO: handle the case where we've screwed up the data and this role doesn't exist or is a duplicate
+        neighbor.roles.add(Role.objects.get(name='Requester'))
 
         # create Address
         address = Address.objects.create(
