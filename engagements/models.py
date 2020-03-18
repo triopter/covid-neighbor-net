@@ -1,5 +1,8 @@
+import datetime
+
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 from neighbors.models import Address
@@ -16,10 +19,10 @@ class Engagement(models.Model):
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='requested_engagements'
     )
     submitted_at = models.DateTimeField(auto_now_add=True, blank=True)
-    expires = models.DateTimeField(
+    expires_at = models.DateTimeField(
         blank=True,
         help_text=_(
-            "If omitted, will be set to submission timestamp plus the value specified in settings.DEFAULT_ENGAGEMENT_EXPIRATION",
+            "If omitted, will be set to time at creation plus the value specified in settings.DEFAULT_ENGAGEMENT_EXPIRATION",
         ),
     )
     address = models.ForeignKey(Address, on_delete=models.CASCADE, related_name='engagements')
@@ -38,5 +41,8 @@ class Engagement(models.Model):
     completed_at = models.DateTimeField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
-        # @TODO: set expiration timestamp
+        if self.expires_at is None:
+            self.expires_at = (self.submitted_at or timezone.now()) + datetime.timedelta(
+                **settings.DEFAULT_ENGAGEMENT_EXPIRATION
+            )
         super().save(*args, **kwargs)
