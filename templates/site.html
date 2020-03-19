@@ -1,0 +1,22 @@
+<html>
+	<head>
+		{# drop any universal stylesheets or scripts or meta tags etc in here #}
+
+		{% block extra_head %}
+			{# any template-specific header overrides will show up here #}
+		{% endblock extra_head %}
+	</head>
+	
+	<body>
+		{# wrap and decorate this in a site template, yay! #}
+		
+		<section class="content">
+			{% block content %}
+				{# each template's rendered content will show up here #}
+			{% endblock content %}
+		</section>		
+		
+		{# other overridable blocks can also be defined #}
+		
+	</body>
+</html>

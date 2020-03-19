@@ -16,6 +16,37 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from engagements import views as engagement_views
+from neighbors import views as neighbor_views
+
 urlpatterns = [
+    path(
+        'engagements/created/<int:engagement_id>/',
+        engagement_views.create_engagement_thanks,
+        name='create_engagement_thanks',
+    ),
+    path('engagements/create/', engagement_views.create_engagement, name='create_engagement'),
+    path(
+        'engagements/<int:engagement_id>/claim/',
+        engagement_views.claim_engagement,
+        name='claim_engagement',
+    ),
+    path(
+        'engagements/<int:engagement_id>/',
+        engagement_views.engagement_detail,
+        name='engagement_detail',
+    ),
+    path('engagements/', engagement_views.search_engagements, name='search_engagements'),
+    path(
+        'register/requester/',
+        engagement_views.register_and_create_engagement,
+        name='register_and_create_engagement',
+    ),
+    path(
+        'register/volunteer/<int:engagement_id>/',
+        engagement_views.register_and_claim_engagement,
+        name='register_and_claim_engagement',
+    ),
+    path('', neighbor_views.home, name='home'),
     path('admin/', admin.site.urls),
 ]

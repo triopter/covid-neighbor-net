@@ -1,0 +1,30 @@
+[
+{
+  "model": "neighbors.role",
+  "pk": 1,
+  "fields": {
+    "name": "Requester"
+  }
+},
+{
+  "model": "neighbors.role",
+  "pk": 2,
+  "fields": {
+    "name": "Volunteer"
+  }
+},
+{
+  "model": "neighbors.role",
+  "pk": 3,
+  "fields": {
+    "name": "Moderator"
+  }
+},
+{
+  "model": "neighbors.role",
+  "pk": 4,
+  "fields": {
+    "name": "Dispatcher"
+  }
+}
+]

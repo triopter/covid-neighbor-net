@@ -1,0 +1,20 @@
+{% extends 'site.html' %}
+
+{% block content %}
+	<h1>We Received Your Request</h1>
+	
+	<p>Maybe someone can write up some great copy to go here about what to expect next.</p>
+	
+	<div>
+		<h2>Details</h2>
+		<dl>
+			<dt>Request</dt>
+			<dd>{{ engagement.description }}</dd>
+
+			<dt>Location</dt>
+			<dd>{{ engagement.address.as_text | linebreaksbr }}</dd>
+
+		</dl>
+		<a href="{% url 'create_engagement' %}" class="link-button">Submit another request</a>
+	</div>
+{% endblock %}

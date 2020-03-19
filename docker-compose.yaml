@@ -10,6 +10,13 @@ services:
       POSTGRES_USER: cvnn
       POSTGRESS_PASSWORD: cvnnpass
       POSTGRES_HOST_AUTH_METHOD: "trust"
+  migration:
+    build: .
+    volumes:
+      - .:/app
+    command: python manage.py migrate --noinput
+    depends_on:
+      - db
   app:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -25,3 +32,4 @@ services:
       DB_PASS: cvnnpass
     depends_on:
       - db
+      - migration

@@ -1,0 +1,7 @@
+{% extends 'site.html' %}
+
+{% block content %}
+	<h1>I'm here to:</h1>
+	<a href="{% url 'search_engagements' %}" class="link-button">Volunteer</a> 
+	<a href="{% url 'register_and_create_engagement' %}" class="link-button">Get Help</a>
+{% endblock %}
