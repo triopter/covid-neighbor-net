@@ -69,3 +69,12 @@ class Address(geo_models.Model):
     def save(self, *args, **kwargs):
         # @TODO: geocode if not yet geocoded
         return super().save(*args, **kwargs)
+
+    def as_text(self):
+        return (
+            f"{self.address_line_1}\n"
+            + (f"{self.address_line_2}\n" if self.address_line_2 else "")
+            + f"{self.city}, {self.region}\n"
+            + f"{self.postal_code}\n"
+            + f"{self.country}\n"
+        )
